@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>WorkSmith Coding Challenge</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="stylesheets/application.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type='text/javascript' src="main.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="page-header">
+        <h1>Worksmith Coding Challenge</h1>
+      </div>
+
+      <div class="row col-xs-12">
+        <div class="panel panel-primary">
+          <div class="panel-heading">Type in Change in dollars</div>
+          <form class="panel-body">
+            <input type='text' class="inputAmount" placeholder="e.g. 4.50" tabIndex='1' autofocus></input>
+            <button class='btn btn-primary'>Submit</button>
+            <div class='checkbox-buttons'>
+              <label class="checkbox-inline">
+                <input type='checkbox' class="checkbox-button quarter" checked>Quarter $0.25</input>
+              </label>
+              <label class="checkbox-inline">
+                <input type='checkbox' class="checkbox-button dime" checked>Dime $.10</input>
+              </label>
+              <label class="checkbox-inline">
+                <input type='checkbox' class="checkbox-button nickel" checked>Nickel $.05</input>
+              </label>
+              <label class="checkbox-inline">
+                <input type='checkbox' class="checkbox-button penny" checked>Penny $.01</input>
+              </label>
+              <label class="checkbox-inline">
+                <input type='checkbox' class="checkbox-button optional">
+                  <input type='text' class='optional-coin' placeholder="e.g. 0.06"></input>
+                </input>
+              </label>
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+      <div class="row col-xs-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">Results</div>
+          <div class="panel-body results"></div>
+        </div>
+      </div>
+      <footer class="row col-xs-12">
+        <hr>
+        <p>Built and Designed by Sonik Jhang</p>
+      </footer>
+    </div>
+  </body>
+</html>
