@@ -31,17 +31,24 @@ window.onload = () => {
   }
 
   const makeChange = (total, coins, memo) => {
+    // this method relies on coins being in descending order
     let change = []
-    coins.forEach((coin, idx) => {
-      let count = Math.floor(total / coin);
-      for (var i = 0; i < count; i++) {
-        change.push(coin);
-      }
-      total = total - (count * coin);
-    })
+
+    // immediately uses the biggest coin possible
+    let firstCoin = coins[0];
+    let count = Math.floor(total / firstCoin);
+    for (var i = 0; i < count; i++) {
+      change.push(firstCoin);
+    }
+    total = total - (count * firstCoin);
+
+    if (total > 0) {
+      change = change.concat(makeChange(total, coins.slice(1), memo))
+    }
+
     return change
   }
-  
+
   // runs when submit button is hit
   const handleSubmit = (e) => {
     e.preventDefault();
