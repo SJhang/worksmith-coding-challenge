@@ -18,3 +18,7 @@ A program for making change. This program takes as an input the amount of change
 ## Improvements
 
 makeChange function implemented right now immediately uses the biggest coin possible. This function will not properly work for example like $.14 with a unique coin of worth $.07 along with other standard US coins.
+
+## Technologies
+
+Vanilla JavaScript, Bootstrap
