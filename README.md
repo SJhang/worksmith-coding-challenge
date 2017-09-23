@@ -16,6 +16,6 @@ A program for making change. This program takes as an input the amount of change
 (optional)
 5. Type in different cents value for fun or uncheck boxes to see different results!
 
-### Improvements
+## Improvements
 
 makeChange function implemented right now immediately uses the biggest coin possible. This function will not properly work for example like $.14 with a unique coin of worth $.07 along with other standard US coins.
