@@ -30,23 +30,30 @@ window.onload = () => {
     }
   }
 
-  const makeChange = (total, coins, memo) => {
+  const makeChange = (total, coins) => {
+    if (total === 0) return [];
     // this method relies on coins being in descending order
+    let bestChange = null;
     let change = []
 
-    // immediately uses the biggest coin possible
-    let firstCoin = coins[0];
-    let count = Math.floor(total / firstCoin);
-    for (var i = 0; i < count; i++) {
-      change.push(firstCoin);
-    }
-    total = total - (count * firstCoin);
+    for (var i = 0; i < coins.length; i++) {
+      let coin = coins[i];
+      debugger;
+      if (coin > total) {
+        debugger
+        continue;
+      } else {
+        debugger;
+        let changeForRest = makeChange(total-coin, coins);
+        change = [coin].concat(changeForRest);
+      }
 
-    if (total > 0) {
-      change = change.concat(makeChange(total, coins.slice(1), memo))
+      if (!bestChange || change.length < bestChange.length ) {
+        bestChange = change
+      }
     }
 
-    return change
+    return bestChange
   }
 
   // runs when submit button is hit
@@ -60,8 +67,7 @@ window.onload = () => {
       if (btn.checked) coins.push(coinAmount(btn));
     })
     coins.sort((a,b) => b-a);
-    let memo = {}
-    let a = makeChange(total, coins, memo)
+    let a = makeChange(total, coins)
     debugger;
     return false;
   }
