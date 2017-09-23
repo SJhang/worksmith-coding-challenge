@@ -13,8 +13,7 @@ A program for making change. This program takes as an input the amount of change
 2. Double click *index.html* from the directory
 3. Type in desired change amount in *dollars*
 4. Press *Submit* !
-(optional)
-5. Type in different cents value for fun or uncheck boxes to see different results!
+5. (optional) Type in different cents value for fun or uncheck boxes to see different results!
 
 ## Improvements
 
