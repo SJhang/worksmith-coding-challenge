@@ -33,72 +33,27 @@ window.onload = () => {
   }
 
   const makeChange = (total, coins) => {
-    // this method relies on coins being in descending order
+    if (total === 0) return [];
+    let bestChange = null;
     let change = []
 
-    // immediately uses the biggest coin possible
-    let firstCoin = coins[0];
-    let count = Math.floor(total / firstCoin);
-    for (var i = 0; i < count; i++) {
-      change.push(firstCoin);
-    }
-    total = total - (count * firstCoin);
+    // loops through with a coin until the coin amount is greater than the total amount
+    coins.some(coin => {
+      // once the coin > total, move on to the next coin
+      if (total < coin) return;
+      // continue doesn't work with each(), forEach() loop in javascript
+      // but some() return; works as continue
 
-    if (total > 0) {
-      change = change.concat(makeChange(total, coins.slice(1)))
-    }
+      let changeForRest = makeChange(total-coin, coins);
+      change = [coin].concat(changeForRest);
 
-    return change
+      if (!bestChange || change.length < bestChange.length) {
+        bestChange = change;
+      }
+    })
+
+    return bestChange
   }
-
-
-  // // upgraded version of the previous makeChange function, however, in a recursive function in javascript,
-  // // it seems to be impossible to use continue.
-  // // see https://stackoverflow.com/questions/31096483/illegal-continue-javascript
-  //
-  // const makeChange = (total, coins) => {
-  //   if (total === 0) return [];
-  //   let bestChange = null;
-  //   let change = []
-  //
-  //   coins.forEach(coin => {
-  //     debugger
-  //     // loops through with a coin until the coin amount is greater than the total amount
-  //     if (total < coin) {
-  //       coins.shift();
-  //     } else {
-  //       // once the coin > total, move on to the next coin
-  //       let changeForRest = makeChange(total-coin, coins);
-  //       change = [coin].concat(changeForRest);
-  //       debugger;
-  //     }
-  //
-  //     if (!bestChange || change.length < bestChange.length) {
-  //       bestChange = change;
-  //     }
-  //   })
-  //
-  //
-  //   // for (var i = 0; i < coins.length; i++) {
-  //   //   debugger;
-  //   //   let coin = coins[i];
-  //   //   // loops through with a coin until the coin amount is greater than the total amount
-  //   //   if (total < coin) {
-  //   //     coins.shift();
-  //   //   } else {
-  //   //     // once the coin > total, move on to the next coin
-  //   //     let changeForRest = makeChange(total-coin, coins);
-  //   //     change = [coin].concat(changeForRest);
-  //   //     debugger;
-  //   //   }
-  //   //
-  //   //   if (!bestChange || change.length < bestChange.length) {
-  //   //     bestChange = change;
-  //   //   }
-  //   // }
-  //
-  //   return bestChange
-  // }
 
   const displayCoinCounts = (changes, coins) => {
     coins.forEach(coin => {
@@ -118,7 +73,7 @@ window.onload = () => {
       case 0.01:
         return 'Penny(s)';
       default:
-        return cents;
+        return `${Math.floor(cents*100)} cents`;
     }
   }
 
