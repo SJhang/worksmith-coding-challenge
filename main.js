@@ -32,72 +32,90 @@ window.onload = () => {
     }
   }
 
-  const makeChange = (total, coins, memo) => {
-    // this method relies on coins being in descending order
-    let change = []
+  // const makeChange = (total, coins) => {
+  //   // this method relies on coins being in descending order
+  //   let change = []
+  //
+  //   // immediately uses the biggest coin possible
+  //   let firstCoin = coins[0];
+  //   let count = Math.floor(total / firstCoin);
+  //   for (var i = 0; i < count; i++) {
+  //     change.push(firstCoin);
+  //   }
+  //   total = total - (count * firstCoin);
+  //
+  //   if (total > 0) {
+  //     change = change.concat(makeChange(total, coins.slice(1)))
+  //   }
+  //
+  //   return change
+  // }
 
-    // immediately uses the biggest coin possible
-    let firstCoin = coins[0];
-    let count = Math.floor(total / firstCoin);
-    for (var i = 0; i < count; i++) {
-      change.push(firstCoin);
-    }
-    total = total - (count * firstCoin);
 
-    if (total > 0) {
-      change = change.concat(makeChange(total, coins.slice(1), memo))
-    }
-
-    return change
-  }
-
-/*
-  // upgraded version of the previous makeChange function, however, in a recursive function in javascript,
-  // it seems to be impossible to use continue.
-  // see https://stackoverflow.com/questions/31096483/illegal-continue-javascript
-
+  // // upgraded version of the previous makeChange function, however, in a recursive function in javascript,
+  // // it seems to be impossible to use continue.
+  // // see https://stackoverflow.com/questions/31096483/illegal-continue-javascript
+  //
   const makeChange = (total, coins) => {
     if (total === 0) return [];
     let bestChange = null;
     let change = []
 
-    // coins.forEach(coin => {
-    //   // loops through with a coin until the coin amount is greater than the total amount
-    //   if (coin > total) return;
-    //   // once the coin > total, move on to the next coin
-    //   total = total - coin;
-    //   let changeForRest = makeChange(total, coins);
-    //   change = [coin].concat(changeForRest);
+    debugger;
+    coins.forEach(coin => {
+      debugger;
+      // loops through with a coin until the coin amount is greater than the total amount
+
+      // once the coin > total, move on to the next coin
+      // total = total - coin;
+      let changeForRest = makeChange(total-coin, coins);
+      change = [coin].concat(changeForRest);
+
+      if (!bestChange || change.length < bestChange.length) {
+        bestChange = change;
+      }
+    })
+
     //
-    //   if (!bestChange || change.length < bestChange.length) {
-    //     bestChange = change;
+    // for (var i = 0; i < coins.length; i++) {
+    //   debugger;
+    //
+    //   let coin = coins[i];
+    //   if (coin <= total) {
+    //     let changeForRest = makeChange(total-coin, coins);
+    //     change = [coin].concat(changeForRest);
     //   }
-    // })
-
-    for (var i = 0; i < coins.length; i++) {
-      let coin = coins[i];
-      if (coin > total) {
-        continue;
-      } else {
-        let changeForRest = makeChange(total-coin, coins);
-        change = [coin].concat(changeForRest);
-      }
-
-      if (!bestChange || change.length < bestChange.length ) {
-        bestChange = change
-      }
-    }
+    //
+    //   if (!bestChange || change.length < bestChange.length ) {
+    //     bestChange = change
+    //   }
+    // }
 
     return bestChange
   }
-  */
 
   const displayCoinCounts = (changes, coins) => {
     coins.forEach(coin => {
       let count = changes.filter(change => coin === change).length;
-      displayResults.innerText += `${count}  $ ${coin/100}\n`
+      displayResults.innerText += count ? `${count} ${matchCoin(coin/100)}\n` : ''
     })
   }
+
+  const matchCoin = (cents) => {
+    switch (cents) {
+      case 0.25:
+        return 'Quarter(s)';
+      case 0.10:
+        return 'Dime(s)';
+      case 0.05:
+        return 'Nickel(s)';
+      case 0.01:
+        return 'Penny(s)';
+      default:
+        return cents;
+    }
+  }
+
   // runs when submit button is hit
   const handleSubmit = (e) => {
     e.preventDefault();
